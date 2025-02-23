@@ -27,8 +27,11 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Get repo name
+        run: echo "BASE_HREF=/${GITHUB_REPOSITORY#*/}/" >> $GITHUB_ENV
+
       - name: Build Flutter Web
-        run: flutter build web --release
+        run: flutter build web --release --base-href "$BASE_HREF"
 
       - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v3
